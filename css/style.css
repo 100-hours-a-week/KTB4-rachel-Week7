@@ -1,0 +1,880 @@
+body {
+
+    font-family: sans-serif;
+
+    padding: 20px;
+
+    background-color: #f9f9f9;
+
+    margin: 0;
+
+}
+
+
+
+.navbar {
+
+    background: #333;
+
+    padding: 15px;
+
+    border-radius: 5px;
+
+}
+
+
+
+.nav-link {
+
+    color: white;
+
+    margin-right: 20px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+}
+
+
+
+.nav-link:hover {
+
+    color: #00adb5;
+
+}
+
+
+
+#app {
+
+    background: white;
+
+    padding: 25px;
+
+    margin-top: 20px;
+
+    border-radius: 5px;
+
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+    min-height: 150px;
+
+}
+
+
+
+.input-box {
+
+    padding: 10px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 4px;
+
+    width: 250px;
+
+    font-size: 14px;
+
+}
+
+
+
+.btn {
+
+    padding: 10px 15px;
+
+    background: #00adb5;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 4px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+}
+
+
+
+.btn:hover {
+
+    background: #02848a;
+
+}
+
+
+
+/* 로그인 페이지 전용 스타일 */
+
+.login-container {
+
+    max-width: 400px;
+
+    margin: 40px auto;
+
+    padding: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+}
+
+
+
+.login-title {
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+    margin-bottom: 30px;
+
+    color: #000;
+
+    text-align: center;
+
+}
+
+
+
+.login-form {
+
+    width: 100%;
+
+}
+
+
+
+.input-group {
+
+    width: 100%;
+
+    margin-bottom: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+
+.input-group label {
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+
+    color: #333;
+
+}
+
+
+
+.input-group input {
+
+    padding: 12px 15px;
+
+    border: 1px solid #000; /* 스크린샷처럼 명확한 테두리 선 */
+
+    border-radius: 6px;
+
+    font-size: 14px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+}
+
+
+
+/* 유효성 메시지 공통 스타일 */
+
+.helper-text {
+
+    margin: 6px 0 0 0;
+
+    font-size: 12px;
+
+    color: red;
+
+    min-height: 16px; /* 메시지가 없을 때도 자리를 차지하게 하여 들뜸 방지 */
+
+}
+
+
+
+.global-error {
+
+    text-align: center;
+
+    margin-bottom: 15px;
+
+    font-weight: bold;
+
+}
+
+
+
+/* 2번 영역: 로그인 버튼 기본 스타일 (유효성 통과 전 - ACAOEB) */
+
+.btn-login-submit {
+
+    width: 100%;
+
+    padding: 14px;
+
+    background-color: #ACA0EB; 
+
+    color: white;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: not-allowed;
+
+    transition: background-color 0.3s ease;
+
+}
+
+
+
+/* [조건부 반영] 모든 유효성이 통과되어 활성화되었을 때의 스타일 (7F6AEE) */
+
+.btn-login-submit.active {
+
+    background-color: #7F6AEE;
+
+    cursor: pointer;
+
+}
+
+
+
+/* 3번 영역: 회원가입 하단 버튼 */
+
+.login-footer {
+
+    margin-top: 20px;
+
+    text-align: center;
+
+}
+
+
+
+.btn-link {
+
+    background: none;
+
+    border: none;
+
+    color: #666;
+
+    font-size: 14px;
+
+    text-decoration: underline;
+
+    cursor: pointer;
+
+}
+
+
+
+.btn-link:hover {
+
+    color: #333;
+
+}
+
+
+/* 게시판 전체 목록 페이지 스타일 */
+.board-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.board-header {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.board-title {
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 1.4;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.board-title span {
+    font-weight: bold;
+}
+
+.action-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+/* 1번 영역: 게시글 작성 버튼 (기본: 7F6AEE / 호버 시: ACA0EB) */
+.btn-post-write {
+    background-color: #7F6AEE;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-post-write:hover {
+    background-color: #ACA0EB;
+}
+
+/* 2번 영역: 게시글 카드 아이템 개별 디자인 */
+.post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.post-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 스크린샷 특유의 부드러운 그림자 */
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
+}
+
+.post-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.card-main {
+    padding: 20px;
+}
+
+.post-card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 0 12px 0;
+    color: #000;
+    /* 제목 26자 글자수 제한 처리 (CSS 안전장치) */
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-meta {
+    display: flex;
+    font-size: 12px;
+    color: #333;
+    align-items: center;
+}
+
+.meta-item {
+    margin-right: 12px;
+}
+
+.post-date {
+    margin-left: auto; /* 날짜를 오른쪽 끝으로 밀기 */
+    color: #666;
+}
+
+/* 카드 하단 작성자 프로필 영역 */
+.card-footer {
+    padding: 12px 20px;
+    border-top: 1px solid #eee; /* 카드 내부 실선 가로선 */
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+}
+
+.author-profile {
+    width: 28px;
+    height: 28px;
+    background-color: #d9d9d9; /* 회색 원형 프로필 */
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.author-name {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+}
+
+
+
+
+/* js/pages/post/style.css 계열 분리 혹은 통합 매핑 */
+
+.post-detail-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.post-detail-header {
+    margin-bottom: 20px;
+}
+
+.post-detail-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.post-author-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.author-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.author-profile-circle {
+    width: 36px;
+    height: 36px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+}
+
+.author-profile-circle.small {
+    width: 28px;
+    height: 28px;
+}
+
+.author-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.post-date, .comment-date {
+    color: #999;
+    font-size: 14px;
+}
+
+/* 버튼 스타일 (2번) */
+.btn-outline-small {
+    background: none;
+    border: 1px solid #ACA0EB;
+    color: #7F6AEE;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-small:hover {
+    background-color: #F4F2FF;
+}
+
+.divider {
+    border: 0;
+    height: 1px;
+    background: #EAEAEA;
+    margin: 20px 0;
+}
+
+/* 본문 영역 */
+.post-detail-body {
+    margin: 30px 0;
+}
+
+.post-detail-image-box {
+    width: 100%;
+    max-height: 400px;
+    background-color: #F5F5F5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.post-detail-image {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.post-detail-content {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #444;
+    white-space: pre-wrap;
+}
+
+/* 카운트 스태츠 영역 (3번) */
+.post-stats-section {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 30px 0;
+}
+
+.stat-card {
+    background: #F5F5F5;
+    border: 1px solid #EAEAEA;
+    border-radius: 8px;
+    width: 100px;
+    padding: 12px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+}
+
+/* 좋아요 버튼 전용 스타일 */
+button.stat-card {
+    cursor: pointer;
+    background-color: #D9D9D9; /* 디폴트 비활성화 색상 */
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+button.stat-card[data-liked="true"] {
+    background-color: #ACA0EB; /* 클릭 후 활성화 색상 */
+    color: #fff;
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #666;
+}
+
+button.stat-card[data-liked="true"] .stat-label {
+    color: #fff;
+}
+
+/* 댓글 입력 영역 (4번) */
+.comment-input-section {
+    margin-bottom: 30px;
+}
+
+.comment-input-wrapper {
+    border: 1px solid #EAEAEA;
+    border-radius: 8px;
+    padding: 12px;
+    background: #fff;
+}
+
+.comment-input-wrapper textarea {
+    width: 100%;
+    height: 80px;
+    border: none;
+    resize: none;
+    font-size: 14px;
+    outline: none;
+}
+
+.comment-submit-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+.btn-comment-submit {
+    background-color: #ACA0EB; /* 비활성화 디폴트 */
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: not-allowed;
+    transition: background-color 0.2s ease;
+}
+
+.btn-comment-submit.active {
+    background-color: #7F6AEE; /* 활성화 컬러 */
+    cursor: pointer;
+}
+
+/* 댓글 리스트 스타일 (5번) */
+.comment-item {
+    padding: 16px 0;
+    border-bottom: 1px solid #F5F5F5;
+}
+
+.comment-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.comment-author-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.comment-author-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn-text-small {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 6px;
+}
+
+.btn-text-small:hover {
+    color: #7F6AEE;
+    text-decoration: underline;
+}
+
+.comment-item-body {
+    padding-left: 36px;
+}
+
+.comment-text {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.5;
+}
+
+/* [요구사항] 모달 스타일 시스템 (2-1번, 5-1번 공통 배경 제어) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 50% 블랙 투명도 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-overlay.hidden {
+    display: none !important;
+}
+
+/* 모달 오픈시 바디 스크롤 방지 클래스 */
+body.modal-open {
+    overflow: hidden !important;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 340px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.modal-subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 24px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn-modal-cancel {
+    background-color: #222;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    flex: 1;
+}
+
+.btn-modal-confirm {
+    background-color: #ACA0EB;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    flex: 1;
+}
+
+
+/* js/pages/postWrite/style.css 계열 분리 혹은 통합 매핑 */
+
+.post-write-container {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 0 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.post-write-page-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 40px;
+}
+
+.post-write-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+}
+
+.form-input {
+    width: 100%;
+    height: 52px;
+    padding: 0 16px;
+    border: 1px solid #EAEAEA;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.form-input:focus, .form-textarea:focus {
+    border-color: #ACA0EB;
+}
+
+.form-textarea {
+    width: 100%;
+    height: 320px;
+    padding: 16px;
+    border: 1px solid #EAEAEA;
+    border-radius: 8px;
+    font-size: 14px;
+    resize: none;
+    outline: none;
+    line-height: 1.5;
+}
+
+/* 3. 헬퍼 텍스트 전용 스타일 */
+.helper-text {
+    font-size: 13px;
+    color: #FF4D4D; /* 레드 계열 경고 색상 */
+    margin-top: -12px;
+}
+
+.helper-text.hidden {
+    display: none !important;
+}
+
+.margin-top-sm {
+    margin-top: 8px;
+}
+
+/* 4. 파일 업로드 박스 스타일 */
+.file-upload-wrapper {
+    border: 1px solid #EAEAEA;
+    border-radius: 8px;
+    padding: 12px 16px;
+    background-color: #F9F9F9;
+    display: flex;
+    align-items: center;
+}
+
+.file-input {
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+}
+
+/* 5. 완료 버튼 기본 (비활성화 상태: 7F6AEE) */
+.btn-submit {
+    width: 100%;
+    height: 52px;
+    background-color: #ACA0EB; 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: not-allowed;
+    transition: background-color 0.2s ease;
+}
+
+/* 입력 조건 충족 시 활성화 상태 스타일 (활성화 상태: ACA0EB) */
+.btn-submit.active {
+    background-color: #7F6AEE; 
+    cursor: pointer;
+}
+
+
+
+
+.helper-error {  
+
+    color: red;
+
+    font-size: 7px;  
+
+}
