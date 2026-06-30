@@ -7,8 +7,32 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <nav class="global-header" data-auth="user">
+        <div class="header-container">
+            <button type="button" id="headerBackBtn" class="btn-back">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            
+            <h1 class="header-title">아무 말 대잔치</h1>
+            
+            <div class="header-profile-wrapper">
+                <button type="button" id="headerProfileBtn" class="btn-profile">
+                    <img src="./images/default-profile.png" alt="기본프로필" class="profile-img">
+                </button>
+                
+                <ul id="headerDropdownMenu" class="header-dropdown hidden">
+                    <li><a href="/user/edit" id="menuEditInfo">회원정보수정</a></li>
+                    <li><a href="/user/password" id="menuEditPwd">비밀번호수정</a></li>
+                    <li><button type="button" id="menuLogout">로그아웃</button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <nav class="navbar">
+
+    <nav class="navbar" data-auth="guest">
         <a href="/" class="nav-link">Home</a>
         <a href="/about" class="nav-link">About</a>
     </nav>

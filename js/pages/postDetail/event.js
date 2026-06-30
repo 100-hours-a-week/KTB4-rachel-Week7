@@ -1,11 +1,10 @@
 import {createLike, deletePost, deleteLike, createComment, deleteComment } from '../../services/postService.js';
 import { router } from '/main.js'; 
 
-export function initPostDetailEvents(postId) {
+export function initPostDetailEvents(postId, currentUserId) {
     const editPostBtn = document.getElementById('editPostBtn');
     const deletePostBtn = document.getElementById('deletePostBtn');
     const likeToggleBtn = document.getElementById('likeToggleBtn');
-    const currentUserId = sessionStorage.getItem('userId');
     const commentTextArea = document.getElementById('commentTextArea');
     const commentSubmitBtn = document.getElementById('commentSubmitBtn');
     const commentListContainer = document.getElementById('commentListContainer');

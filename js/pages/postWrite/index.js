@@ -1,10 +1,15 @@
 import { renderPostWriteLayout } from './dom.js';
 import { initPostWriteEvents } from './event.js';
 import { getPostDetail } from '../../services/postService.js';
+import { headerEvents } from "../../common/headerEvents.js";
+
 
 export function initPostWritePage(postId) {
     document.getElementById('app').innerHTML = renderPostWriteLayout();
- 
+    document.body.classList.add('logged-in');
+
+    const userId = sessionStorage.getItem('userId');
+    
     // 기존 내용 채워주기
     if (postId !== null) {
         getPostDetail(postId)
@@ -18,6 +23,9 @@ export function initPostWritePage(postId) {
             });
     }
 
+    document.body.classList.add('logged-in');
+    headerEvents(userId);
+    
 
     initPostWriteEvents(postId);
 

@@ -5,13 +5,12 @@ import { initPostDetailPage } from './js/pages/postDetail/index.js';
 import { initPostWritePage } from './js/pages/postWrite/index.js';
 
 
-
 const routes = {
     '/': 'signup',
     '/signup' : 'signup',
     '/login' : 'login',
-    // '/user/userInfo' : renderUserInfo, 
-    // '/user/password' : renderUserPassword, 
+    '/user/edit' : 'userUpdateNickname',
+    '/user/password' : 'userUpdatePassword',
     '/posts' : 'post',
     '/post/write' : 'postWrite'
 };
@@ -32,9 +31,28 @@ export function router() {
             return;
         }
         
-        render("postDetail", postId);
+        render("postDetail", postId, null);
         return;
     } 
+
+    // 유저 id 가져올때
+    if(state && state.userId) {
+
+        const userId = state.userId;
+
+        console.log(`user id: ${JSON.stringify(userId)}가지고, 원래 ${userId} router함수 내부에오.`);
+        
+        if(path.startsWith("/user/edit")) {
+            render("userUpdateNickname", null ,userId);
+            return;
+        }
+        
+
+        if(path.startsWith("/user/password")) {
+            render("userUpdatePassword", null ,userId);
+            return;
+        }
+    }
 
     // if (path.startsWith("/post/")) {
 
@@ -52,12 +70,12 @@ export function router() {
     }
 
     render('signup'); // 아무것도 매핑되는 것이 없을 떄
-
+    
     }
 
 
 
-async function render(pageKey, postId = null) {
+async function render(pageKey, postId = null, userId = null) {
 
     // 회원가입 화면 렌더링
     if (pageKey == 'signup') {
@@ -90,6 +108,7 @@ async function render(pageKey, postId = null) {
         }
     }
 
+    // 게시글 상세 페이지 렌더링
     if (pageKey === "postDetail") {
         try {
             const module = await import("./js/pages/postDetail/index.js");
@@ -99,16 +118,40 @@ async function render(pageKey, postId = null) {
         }
     }
 
+    // 게시글 수정 페이지 렌더링
     if (pageKey === "postWrite") {
         try {
             const module = await import("./js/pages/postWrite/index.js");
             module.initPostWritePage(postId);
         } catch (error) {
-            console.error("상세 페이지를 불러오는 중 오류가 발생하였습니다:  ",error);
+            console.error("게시글 수정 페이지를 불러오는 중 오류가 발생하였습니다:  ",error);
+        }
+    }
+
+    // 회원정보수정 - 닉네임 수정 페이지 렌더링
+    if (pageKey === "userUpdateNickname") {
+        console.log(`유저 아이디: ${userId}를 가지고 닉네임 수정 페이지를 렌더링`);
+        try {
+            const module = await import("./js/pages/userUpdateNickname/index.js");
+            module.initUserUpdateNicknamePage(userId);
+        } catch (error) {
+            console.error("유저 닉네임 수정 페이지를 불러오는 중 오류가 발생하였습니다:  ",error);
+        }
+    }
+
+    // 회원정보수정 - 비밀번호 수정 페이지 렌더링 
+    if (pageKey === "userUpdatePassword") {
+        console.log(`유저 아이디: ${userId}를 가지고 비밀번호 수정 페이지를 렌더링`);
+        try {
+            const module = await import("./js/pages/userUpdatePassword/index.js");
+            module.initUserUpdatePassword(userId);
+        } catch (error) {
+            console.error("유저 비밀번호 수정 페이지를 불러오는 중 오류가 발생하였습니다:  ",error);
         }
     }
 
 }
+
 
 
 // 첫화면 로드
@@ -116,4 +159,5 @@ window.addEventListener('DOMContentLoaded', router);
 
 // 뒤로가기
 window.addEventListener('popstate', router);
+
 

@@ -1,12 +1,16 @@
 import { renderPostsLayout, renderPostItems } from './dom.js';
 import { initPostsEvents } from './event.js';
 import { Allposts } from '../../services/postService.js';
+import { headerEvents } from "../../common/headerEvents.js";
+
 
 export async function initPostsPage() {
     console.log('post index.js 진입');
     // 초기 10개 게시글만 보임(제목 26자로 잘림, 좋아요 수/댓글수/조회수/작성자이름)
     document.getElementById('app').innerHTML = renderPostsLayout();
-    
+    document.body.classList.add('logged-in');
+
+    const userId = sessionStorage.getItem('userId');
     
     try {
         const posts = await Allposts();
@@ -19,6 +23,9 @@ export async function initPostsPage() {
         console.error("게시글 목록을 화면에 표시하는 중 오류 발생:", error);
     }
 
+    document.body.classList.add('logged-in');
+    headerEvents(userId);
+    
     initPostsEvents(); // TODO: 이벤트는 무한 스크롤, 개별 페이지로 이동
    
 }

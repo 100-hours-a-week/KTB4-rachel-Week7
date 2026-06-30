@@ -870,6 +870,463 @@ body.modal-open {
 
 
 
+/* 공통 헤더 스타일 */
+.global-header {
+    width: 100%;
+    height: 60px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #d1d5db;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+/* 뒤로가기 버튼 */
+.btn-back {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    color: #333;
+}
+
+/* 타이틀 */
+.header-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111111;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+/* 프로필 wrapper */
+.header-profile-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-profile {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 드롭다운 메뉴 (이미지 양식 참고) */
+.header-dropdown {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    width: 140px;
+    background-color: #e5e7eb; /* 이미지의 약간 어두운 회색 톤 반영 */
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+
+.header-dropdown li {
+    border-bottom: 1px solid #d1d5db;
+}
+
+.header-dropdown li:last-child {
+    border-bottom: none;
+}
+
+.header-dropdown a, 
+.header-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #333333;
+    text-align: center;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+/* 마우스 올렸을 때 피드백 */
+.header-dropdown a:hover, 
+.header-dropdown button:hover {
+    background-color: #d1d5db;
+}
+
+/* 유틸리티 클래스 */
+.hidden {
+    display: none !important;
+}
+
+/* [기본 상태: 로그아웃] guest는 보이고, user는 숨김 */
+[data-auth="guest"] {
+    display: flex; /* 또는 원래 사용하시던 block 등 */
+}
+[data-auth="user"] {
+    display: none !important;
+}
+
+/* [로그인 상태] body에 .logged-in이 붙었을 때 역전시킴 */
+body.logged-in [data-auth="guest"] {
+    display: none !important;
+}
+body.logged-in [data-auth="user"] {
+    display: block !important; /* global-header 스타일에 맞게 지정 (예: block 또는 flex) */
+}
+
+
+/* 전체 컨테이너 패딩 및 배경 */
+.edit-profile-container {
+    max-width: 480px;
+    margin: 40px auto;
+    padding: 0 24px;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit-profile-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    color: #000000;
+    text-align: center;
+}
+
+.edit-profile-form {
+    width: 100%;
+}
+
+/* 1. 프로필 이미지 영역 스크립트 */
+.profile-image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.profile-label {
+    align-self: flex-start;
+    font-size: 14px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+.profile-image-wrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #7f8c8d;
+}
+
+.profile-preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 이미지 중앙의 '변경' 버튼 레이어 */
+.btn-change-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.4);
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-change-image:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.hidden-file-input {
+    display: none !important;
+}
+
+/* 2. 이메일 & 닉네임 박스 영역 (빨간 박스 2번 테두리 형태 스타일 구현) */
+.form-info-group {
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.info-item {
+    margin-bottom: 16px;
+}
+
+.info-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 8px;
+}
+
+.info-value-text {
+    display: block;
+    font-size: 15px;
+    color: #333333;
+    padding: 4px 0;
+}
+
+.form-control-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-input {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    font-size: 14px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.helper-text {
+    font-size: 12px;
+    color: #e74c3c; /* 빨간색 헬퍼 텍스트 */
+    margin: 6px 0 0 0;
+}
+
+/* 3. 수정하기 버튼 (보라색 라운드 사각형) */
+.form-action-row {
+    margin-bottom: 12px;
+}
+
+.btn-primary-purple {
+    width: 100%;
+    height: 44px;
+    background-color: #a393eb; /* 시안의 연보라색 계열 */
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary-purple:hover {
+    background-color: #8e7ce3;
+}
+
+/* 4. 회원 탈퇴 버튼 (테두리 링크 형태) */
+.leave-action-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.btn-text-link {
+    width: 100%;
+    height: 36px;
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    color: #333333;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.btn-text-link:hover {
+    background-color: #f9fafb;
+}
+
+/* 5. 수정 완료 알림 영역 (시안 하단 동그란 캡슐형태 버튼) */
+.toast-complete-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.btn-toast-purple {
+    background-color: #a393eb;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 20px; /* 둥근 캡슐형 */
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+/* 유틸리티 */
+.hidden {
+    display: none !important;
+}
+
+/* 컨테이너 및 타이틀 */
+.edit-password-container {
+    max-width: 480px;
+    margin: 40px auto;
+    padding: 0 24px;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit-password-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    color: #000000;
+    text-align: center;
+}
+
+.edit-password-form {
+    width: 100%;
+}
+
+/* 1. 입력 폼 그룹 박스 (흰색 라운드 컨테이너) */
+.form-info-group {
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.form-control-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.margin-top-md {
+    margin-top: 20px;
+}
+
+.info-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 8px;
+}
+
+.form-input {
+    width: 100%;
+    height: 44px;
+    padding: 0 12px;
+    font-size: 14px;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #7f6aee;
+}
+
+/* 헬퍼 텍스트 스타일 */
+.helper-text {
+    font-size: 12px;
+    color: #e74c3c;
+    margin: 6px 0 0 0;
+}
+
+/* 2. 수정하기 버튼 (기본 비활성화 색상: #ACA0EB) */
+.form-action-row {
+    background-color: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-primary-purple {
+    width: 100%;
+    height: 44px;
+    background-color: #7f6aee; /* 활성화 색상 */
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary-purple:disabled {
+    background-color: #aca0eb; /* 비활성화 색상 */
+    cursor: not-allowed;
+}
+
+/* 토스트 메시지 스타일 */
+.toast-complete-wrapper {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.btn-toast-purple {
+    background-color: #7f6aee;
+    color: #ffffff;
+    padding: 12px 32px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+/* 유틸리티 */
+.hidden {
+    display: none !important;
+}
 
 .helper-error {  
 

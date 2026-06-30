@@ -13,6 +13,7 @@ export function initSignupPage() {
     
     console.log("signup 진입 index");
     document.getElementById('app').innerHTML = renderSignup(); // dom.js에 있는 화면 그려주기(dom 생성)
+    document.body.classList.remove('logged-in');
     initSignupEvents(); // 브라우저에 이벤트 함수 등록
      
 }
