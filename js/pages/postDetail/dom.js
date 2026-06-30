@@ -72,14 +72,14 @@ export function renderPostDetailLayout(post) {
     </div>
 
     <div id="globalModalOverlay" class="modal-overlay hidden">
-        <div class="modal-content">
+        <dialog id="PostDetailDialog" class="modal-content>
             <h2 id="modalTitle" class="modal-title">게시글을 삭제하겠습니까?</h2>
             <p class="modal-subtitle">삭제한 내용은 복구 할 수 없습니다.</p>
             <div class="modal-actions">
                 <button type="button" id="modalCancelBtn" class="btn-modal-cancel">취소</button>
                 <button type="button" id="modalConfirmBtn" class="btn-modal-confirm">확인</button>
             </div>
-        </div>
+        </dialog>
     </div>
     `;
 }

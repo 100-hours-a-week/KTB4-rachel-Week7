@@ -1,4 +1,5 @@
-import {createLike, deleteLike, createComment, deleteComment } from '../../services/postService.js';
+import {createLike, deletePost, deleteLike, createComment, deleteComment } from '../../services/postService.js';
+import { router } from '/main.js'; 
 
 export function initPostDetailEvents(postId) {
     const editPostBtn = document.getElementById('editPostBtn');
@@ -16,14 +17,52 @@ export function initPostDetailEvents(postId) {
     let editingCommentId = null;
 
     // 수정 클릭시 수정페이지로 이동
-    editPostBtn.addEventListener("click", () => {
-        window.history.pushState({}, '', '/post/write'); // 왜 수정페이지 제대로 안가지
-        render();
+    editPostBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.history.pushState({postId : postId}, '', '/post/write/${postId}');
+        router(); 
     });
+
 
     // 삭제 클릭시 확인 모달
     deletePostBtn.addEventListener("click", () => {
+        const PostDetailDialog = document.getElementById("PostDetailDialog");
+        
+        PostDetailDialog.showModal();
         document.getElementById('globalModalOverlay').classList.remove('hidden');
+        
+        // 취소 
+        document.getElementById('modalCancelBtn').addEventListener("click", () => {
+            PostDetailDialog.close();
+            document.getElementById('globalModalOverlay').classList.add('hidden');
+        
+        }) 
+
+        // 확인(삭제)
+        document.getElementById('modalConfirmBtn').addEventListener("click", () => {
+            
+            deletePost(postId)
+            .then((response) => {
+                if(!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }  
+                return response.json();
+            })
+            .then((data) => {
+                console.log("서버가 준 응답: ", data);
+                    
+            })
+            .catch((error) => {
+                console.error(error.message);
+            });
+
+            PostDetailDialog.close();
+            document.getElementById('globalModalOverlay').classList.add('hidden');
+        
+            
+            window.history.pushState({},"", "/posts");
+            router();
+        })
     });
     
     //좋아요 클릭 활성화 및 카운트 변경 fetch
@@ -48,21 +87,21 @@ export function initPostDetailEvents(postId) {
             console.log("내 유저 ID:", currentUserId);
 
 
-            createLike(postId,currentUserId, LikeRequestDto).then((response) => {
+            createLike(postId,currentUserId, LikeRequestDto)
+            .then((response) => {
                     
-                    if(!response.ok) {
-                        throw new Error(`Response status: ${response.status}`);
-                    }
+                if(!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                } 
+                return response.json();
+            })
+            .then((data) => {
+                console.log("서버가 준 응답: ", data);
                     
-                    return response.json();
-                    })
-                    .then((data) => {
-                    console.log("서버가 준 응답: ", data);
-                    //
-                    })
-                    .catch((error) => {
-                    console.error(error.message);
-                    });
+            })
+            .catch((error) => {
+                console.error(error.message);
+            });
         }
         // 좋아요 취소
         else {
@@ -104,7 +143,7 @@ export function initPostDetailEvents(postId) {
         
     });
 
-    // 댓글 부분..
+    
     // 댓글 생성과 수정을 동시에 + fetch
     commentTextArea.addEventListener("input", () => {
         const hashContent = commentTextArea.value.length > 0;

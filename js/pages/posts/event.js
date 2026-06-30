@@ -8,7 +8,7 @@ export function initPostsEvents() {
     // 게시글 작성 페이지로 이동
     writeBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            history.pushState(null, '', '/post/write'); // 왜 다시 회원가입 페이지로 오지
+            history.pushState(null, '', '/post/write'); // 여기에 게시글id 넣어주려면 어디에?
             router(); 
     });
 
@@ -18,7 +18,7 @@ export function initPostsEvents() {
             const postItem = e.target.closest('.post-item');
             if (postItem) {
                 const postId = postItem.dataset.id; // data-id="${post.postId}"
-                history.pushState(null, '', `/post/${postId}`);
+                history.pushState({postId: postId}, '', `/post/${postId}`);
                 router();
             }
         });

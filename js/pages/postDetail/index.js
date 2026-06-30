@@ -2,10 +2,7 @@ import { renderPostDetailLayout, renderCommentItems } from "./dom.js";
 import { initPostDetailEvents } from "./event.js";
 import { getPostDetail } from "../../services/postService.js"; // 처음부터 가져와야 해서
 
-export async function initPostDetailPage() {
-
-    const postId = window.location.pathname.split("/")[2];
-
+export async function initPostDetailPage(postId) {
     console.log(postId); 
 
     const response = await getPostDetail(postId);

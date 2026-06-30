@@ -37,6 +37,7 @@ export async function getPostDetail(postId) {
 
 // 게시글 생성하기
 export async function createPost(userId, userData){
+    console.log("실제 서버로 날아가는 데이터:", JSON.stringify(userData));
     return await fetch(`http://localhost:8080/posts/users/${userId}`, 
     {
         method: 'POST',
@@ -57,6 +58,13 @@ export async function updatePost(postId, userData) {
 
 
 // 게시글 삭제하기
+export async function deletePost(postId){
+    console.log(`${postId} 게시글 삭제 fetch api`);
+    return await fetch(`http://localhost:8080/posts/${postId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' } 
+    })
+}
 
 
 

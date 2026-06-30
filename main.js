@@ -19,15 +19,35 @@ const routes = {
 // 라우터 함수: 현재 주소에 맞는 페이지를 화면에 렌더링
 export function router() {
     const path = window.location.pathname; // 유저가 처음 브라우저에 접속했을 때 url
+    const state = window.history.state;
     
-    
+    console.log(`현재 지금 path는 ${path}이고, state는 ${JSON.stringify(state)} 이면서..`);
+
+    // 경우의 수 1: postId으로 상세페이지 접근할때 /post/2111, 경우의 수2: postId으로 상세페이지에서 '수정 페이지'에 갈때 post/write
+    if(state && state.postId) { // state 상태 객체가 존재하고, 그 안에 postId도 넘겨왓을 때
+        const postId = state.postId;
+        
+        if (path.startsWith("/post/write")) {
+            render("postWrite", postId);
+            return;
+        }
+        
+        render("postDetail", postId);
+        return;
+    } 
+
+    // if (path.startsWith("/post/")) {
+
+    //     //const postId = window.location.pathname.split("/")[2]; // 꼭 이거 아닐 수 있는데 어떻게 id만 가져오지
+    //     const postId = state.postId;
+
+    //     render("postDetail", postId);
+    //     return;
+    // }
+
+
     if (routes[path]) {
         render(routes[path]);
-        return;
-    }
-
-    if (path.startsWith("/post/")) {
-        render("postDetail");
         return;
     }
 
@@ -37,7 +57,7 @@ export function router() {
 
 
 
-async function render(pageKey) {
+async function render(pageKey, postId = null) {
 
     // 회원가입 화면 렌더링
     if (pageKey == 'signup') {
@@ -73,7 +93,7 @@ async function render(pageKey) {
     if (pageKey === "postDetail") {
         try {
             const module = await import("./js/pages/postDetail/index.js");
-            module.initPostDetailPage();
+            module.initPostDetailPage(postId);
         } catch (error) {
             console.error("상세 페이지를 불러오는 중 오류가 발생하였습니다:  ",error);
         }
@@ -82,7 +102,7 @@ async function render(pageKey) {
     if (pageKey === "postWrite") {
         try {
             const module = await import("./js/pages/postWrite/index.js");
-            module.initPostWritePage();
+            module.initPostWritePage(postId);
         } catch (error) {
             console.error("상세 페이지를 불러오는 중 오류가 발생하였습니다:  ",error);
         }
@@ -97,11 +117,3 @@ window.addEventListener('DOMContentLoaded', router);
 // 뒤로가기
 window.addEventListener('popstate', router);
 
-
-// 테스트용
-// window.addEventListener('DOMContentLoaded', () => {
-//     // 주소창은 /posts로 강제로 바꾸고
-//     history.pushState(null, '', '/posts');
-//     // 라우터를 실행해 게시글 페이지를 그리게 만듭니다.
-//     router();
-// });
