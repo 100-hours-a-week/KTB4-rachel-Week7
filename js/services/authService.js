@@ -44,3 +44,22 @@ export async function deleteUser(userId){
         headers: { 'Content-Type': 'application/json' } 
     })
 }
+
+
+// 닉네임 또는 프사 수정 PatchMapping
+export async function updateNicknameProfileImg(userId, userData) {
+    return await fetch(`http://localhost:8080/users/${userId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData) // 
+    })
+}
+
+// 비밀번호 수정 PutMapping
+export async function updatePassword(userId, userData) {
+    return await fetch(`http://localhost:8080/users/${userId}/password`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData) // 
+    })
+}

@@ -51,5 +51,16 @@ export function renderEditProfileLayout(user) {
             <button type="button" id="btnToastConfirm" class="btn-toast-purple">수정완료</button>
         </div>
     </div>
+
+    <div id="withdrawalModalOverlay" class="modal-overlay hidden">
+        <dialog id="withdrawalDialog" class="modal-content">
+            <h2 id="withdrawalModalTitle" class="modal-title">회원탈퇴 하시겠습니까?</h2>
+            <p class="modal-subtitle">작성된 게시글과 댓글은 삭제됩니다.</p>
+            <div class="modal-actions">
+                <button type="button" id="withdrawalCancelBtn" class="btn-modal-cancel">취소</button>
+                <button type="button" id="withdrawalConfirmBtn" class="btn-modal-confirm">확인</button>
+            </div>
+        </dialog>
+    </div>
     `;
 }

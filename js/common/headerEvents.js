@@ -8,6 +8,10 @@ export function headerEvents(userId) {
 
     if (!profileBtn || !dropdownMenu) return;
 
+    backBtn.addEventListener('click', (e) => {
+        window.history.back(); // 이건 공통 헤더 이벤트라서 꼭 뒤로가기가 게시글 전체조회가 아닐 수도 있어
+    })
+
     profileBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         dropdownMenu.classList.toggle('hidden');
@@ -21,7 +25,6 @@ export function headerEvents(userId) {
     });
 
     // 각 메뉴 클릭 이벤트 바인딩
-
     document.getElementById('menuEditInfo')?.addEventListener('click', (e) => {
         e.preventDefault();
         console.log('닉네임 수정 페이지 이동 되었습니다.');

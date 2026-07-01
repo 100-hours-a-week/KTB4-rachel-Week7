@@ -77,15 +77,15 @@ export async function initPostWriteEvents(postId = null) {
 
         // 생성 또는 수정 - api 분기
         if (postId !== null) {
-            console.log('수정 서버에 보낼게요.');
-            updatePost(targetPostId, postRequestData)
+            console.log(`수정 서버에 보낼게요. 보낼 데이터: ${JSON.stringify(postRequestData)}`);
+            updatePost(postId, postRequestData)
                 .then((response) => {
                     if(!response.ok) throw new Error(`Response status: ${response.status}`);
                     return response.json();
                 })
                 .then((data) => {
                     console.log("서버가 준 수정 응답: ", data);
-                    window.history.pushState({}, "", `/post/${targetPostId}`); // 상세페이지로 복귀
+                    window.history.pushState({postId: postId}, "", `/post/${postId}`); // 상세페이지로 복귀
                     router();
                 })
                 .catch((error) => console.error(error.message));

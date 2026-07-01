@@ -30,9 +30,13 @@ export function router() {
             render("postWrite", postId);
             return;
         }
+
+        if (path.startsWith("/post/")) {
+                
+            render("postDetail", postId, null);
+            return;
+        }
         
-        render("postDetail", postId, null);
-        return;
     } 
 
     // 유저 id 가져올때

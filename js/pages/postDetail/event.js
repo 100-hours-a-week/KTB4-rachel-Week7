@@ -1,5 +1,6 @@
 import {createLike, deletePost, deleteLike, createComment, deleteComment } from '../../services/postService.js';
 import { router } from '/main.js'; 
+import { formatCount } from './dom.js';
 
 export function initPostDetailEvents(postId, currentUserId) {
     const editPostBtn = document.getElementById('editPostBtn');
@@ -11,7 +12,6 @@ export function initPostDetailEvents(postId, currentUserId) {
     const commentEdit = document.getElementById('btn-comment-edit');
     
     // 상태 관리 변수들
-    let isLike = likeToggleBtn.dataset.like; //html의 속성가져오는건 dataset. 근데 boolean이 아니라 무조건 문자열
     let isEditMode = false;
     let editingCommentId = null;
 
@@ -40,7 +40,11 @@ export function initPostDetailEvents(postId, currentUserId) {
         // 확인(삭제)
         document.getElementById('modalConfirmBtn').addEventListener("click", () => {
             
-            deletePost(postId)
+            const PostDeleteRequestDto = {
+                userId : currentUserId
+            }
+
+            deletePost(postId, PostDeleteRequestDto)
             .then((response) => {
                 if(!response.ok) {
                     throw new Error(`Response status: ${response.status}`);
@@ -49,6 +53,9 @@ export function initPostDetailEvents(postId, currentUserId) {
             })
             .then((data) => {
                 console.log("서버가 준 응답: ", data);
+
+                window.history.pushState({},"", "/posts");
+                router();
                     
             })
             .catch((error) => {
@@ -57,10 +64,8 @@ export function initPostDetailEvents(postId, currentUserId) {
 
             PostDetailDialog.close();
             document.getElementById('globalModalOverlay').classList.add('hidden');
-        
             
-            window.history.pushState({},"", "/posts");
-            router();
+            
         })
     });
     
@@ -68,10 +73,12 @@ export function initPostDetailEvents(postId, currentUserId) {
     likeToggleBtn.addEventListener("click", async () => {
         //TODO: 바로 바로 업데이트 되는게 맞는지? fetch 지연로딩이면 프론트에서 처리따로 안하고 일반적으로 fetch하면 되는건지?
         
+        let curLike = (likeToggleBtn.dataset.liked === "true"); // 괄호와 일치하면 true, 일치하지않으면 false 반환 //html의 속성가져오는건 dataset. 근데 boolean이 아니라 무조건 문자열
+        let likeCountValue = document.getElementById("likeCountValue");
+
         // 좋아요 생성
-        if (isLike == "false")
+        if (!curLike)
         {
-            isLike = "true";
 
             const LikeRequestDto = {
                 isLike : true
@@ -86,7 +93,7 @@ export function initPostDetailEvents(postId, currentUserId) {
             console.log("내 유저 ID:", currentUserId);
 
 
-            createLike(postId,currentUserId, LikeRequestDto)
+            createLike(postId, currentUserId, LikeRequestDto)
             .then((response) => {
                     
                 if(!response.ok) {
@@ -95,7 +102,13 @@ export function initPostDetailEvents(postId, currentUserId) {
                 return response.json();
             })
             .then((data) => {
+                console.log(`정상적으로 서버에게 응답을 받았고, 내가 보낸 좋아요는: ${LikeRequestDto} 혹시나 ${JSON.stringify(LikeRequestDto)}`);
                 console.log("서버가 준 응답: ", data);
+                likeToggleBtn.dataset.liked = "true";
+                
+                //바로 좋아요 html이 보이도록
+                let currentLikeCount = parseInt(likeCountValue.textContent.replace('k', '000'), 10) || 0;
+                likeCountValue.textContent = formatCount(currentLikeCount + 1);
                     
             })
             .catch((error) => {
@@ -104,8 +117,8 @@ export function initPostDetailEvents(postId, currentUserId) {
         }
         // 좋아요 취소
         else {
-            isLike = "false";
-
+        
+            
             const LikeRequestDto = {
                 isLike : false
             }
@@ -119,7 +132,7 @@ export function initPostDetailEvents(postId, currentUserId) {
             console.log("내 유저 ID:", currentUserId);
 
 
-            createLike(postId,currentUserId, LikeRequestDto).then((response) => {
+            deleteLike(postId,currentUserId, LikeRequestDto).then((response) => {
                     
                     if(!response.ok) {
                         throw new Error(`Response status: ${response.status}`);
@@ -128,8 +141,16 @@ export function initPostDetailEvents(postId, currentUserId) {
                     return response.json();
                     })
                     .then((data) => {
+
+                    console.log(`정상적으로 서버에게 응답을 받았고, 내가 보낸 좋아요는: ${LikeRequestDto} 혹시나 ${JSON.stringify(LikeRequestDto)}`);
                     console.log("서버가 준 응답: ", data);
-                    //
+                    likeToggleBtn.dataset.liked = "false";
+
+
+                    //바로 좋아요 html이 보이도록
+                    let currentLikeCount = parseInt(likeCountValue.textContent.replace('k', '000'), 10) || 0;
+                    likeCountValue.textContent = formatCount(currentLikeCount - 1);
+                    
                     })
                     .catch((error) => {
                     console.error(error.message);

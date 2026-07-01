@@ -1,6 +1,6 @@
 //게시글 전체 가져오기
 export async function Allposts() {
-    console.log('Allposts 진입');
+    
     try {
         const response = await fetch(`http://localhost:8080/posts`);
         if (!response.ok) {
@@ -58,11 +58,12 @@ export async function updatePost(postId, userData) {
 
 
 // 게시글 삭제하기
-export async function deletePost(postId){
+export async function deletePost(postId,userData){
     console.log(`${postId} 게시글 삭제 fetch api`);
     return await fetch(`http://localhost:8080/posts/${postId}`, {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' } 
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
     })
 }
 
@@ -71,7 +72,7 @@ export async function deletePost(postId){
 // 좋아요 생성
 export async function createLike(postId, userId, userData){
     console.log(`유저 아이디: ${userId}, 게시글 번호 ${postId} 좋아요 생성 업데이트 service.js 진입`);
-    return await fetch(`http://localhost:8080/users/posts/${postId}/${userId}/likes`, {
+    return await fetch(`http://localhost:8080/posts/${postId}/${userId}/likes`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData) // 
@@ -86,7 +87,7 @@ export async function deleteLike(postId, userId, userData) {
         method: "DELETE",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData)
-    });
+    })
 }
 
 

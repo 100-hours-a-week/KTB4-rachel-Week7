@@ -12,7 +12,10 @@ export async function initPostsPage() {
 
     const userId = sessionStorage.getItem('userId');
     
+        console.log(`try 구문 밖, posts index.js는 들어왔음`);
     try {
+        
+        console.log(`try 구문 안, posts index.js는 들어왔음`);    
         const posts = await Allposts();
         const postListContainer= document.getElementById('postListContainer');
         
