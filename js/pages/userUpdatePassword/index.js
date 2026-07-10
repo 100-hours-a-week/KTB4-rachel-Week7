@@ -5,8 +5,9 @@ import { initUserUpdatePasswordEvents } from './event.js';
 
 export function initUserUpdatePassword(currentUserId) {
     // 유저 데이터 찾아오기
+    console.log(`pwd update index.js 진입`);
     if (currentUserId !== null) {
-
+        console.log(`여기 if문 안에 들어왔어요.`)
         getUser(currentUserId)
         .then((response) => {
             console.log(`response 내용: ${response}`);

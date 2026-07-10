@@ -202,17 +202,7 @@ body {
 
 /* 유효성 메시지 공통 스타일 */
 
-.helper-text {
 
-    margin: 6px 0 0 0;
-
-    font-size: 12px;
-
-    color: red;
-
-    min-height: 16px; /* 메시지가 없을 때도 자리를 차지하게 하여 들뜸 방지 */
-
-}
 
 
 
@@ -818,11 +808,7 @@ body.modal-open {
 }
 
 /* 3. 헬퍼 텍스트 전용 스타일 */
-.helper-text {
-    font-size: 13px;
-    color: #FF4D4D; /* 레드 계열 경고 색상 */
-    margin-top: -12px;
-}
+
 
 .helper-text.hidden {
     display: none !important;
@@ -1100,13 +1086,6 @@ body.logged-in [data-auth="user"] {
     margin-bottom: 16px;
 }
 
-.info-label {
-    display: block;
-    font-size: 14px;
-    font-weight: 700;
-    color: #000000;
-    margin-bottom: 8px;
-}
 
 .info-value-text {
     display: block;
@@ -1153,6 +1132,7 @@ body.logged-in [data-auth="user"] {
     cursor: pointer;
     transition: background-color 0.2s;
 }
+
 
 .btn-primary-purple:hover {
     background-color: #8e7ce3;
@@ -1269,11 +1249,8 @@ body.logged-in [data-auth="user"] {
 }
 
 /* 헬퍼 텍스트 스타일 */
-.helper-text {
-    font-size: 12px;
-    color: #e74c3c;
-    margin: 6px 0 0 0;
-}
+
+
 
 /* 2. 수정하기 버튼 (기본 비활성화 색상: #ACA0EB) */
 .form-action-row {

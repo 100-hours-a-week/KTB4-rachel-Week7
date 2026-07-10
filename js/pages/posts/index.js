@@ -9,14 +9,14 @@ export async function initPostsPage() {
     // 초기 10개 게시글만 보임(제목 26자로 잘림, 좋아요 수/댓글수/조회수/작성자이름)
     document.getElementById('app').innerHTML = renderPostsLayout();
     document.body.classList.add('logged-in');
-
+    console.log(document.cookie);
     const userId = sessionStorage.getItem('userId');
     
-        console.log(`try 구문 밖, posts index.js는 들어왔음`);
+    console.log(`try 구문 밖, posts index.js는 들어왔음`);
     try {
         
         console.log(`try 구문 안, posts index.js는 들어왔음`);    
-        const posts = await Allposts();
+        const posts = await Allposts(); // TODO: posts 조회해보기
         const postListContainer= document.getElementById('postListContainer');
         
         const limitedPosts = posts && posts.length > 0 ? posts.slice(0, 10) : []; 
