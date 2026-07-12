@@ -2,7 +2,7 @@ export function renderEditProfileLayout(user) {
     // 기본값 처리
     const email = user?.email || 'startupcode@gmail.com';
     const nickname = user?.nickname || '스타트업코드';
-    const profileImage = user?.profileImage || './images/default-profile.png';
+    const profileImage = user?.profileImage || '../../../images/default-profile.png';
 
     return `
     <div class="edit-profile-container">

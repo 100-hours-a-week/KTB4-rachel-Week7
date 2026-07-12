@@ -221,39 +221,23 @@ body {
 /* 2번 영역: 로그인 버튼 기본 스타일 (유효성 통과 전 - ACAOEB) */
 
 .btn-login-submit {
-
     width: 100%;
-
     padding: 14px;
-
-    background-color: #ACA0EB; 
-
+    /* 1. 기본 상태를 '활성화된 예쁜 보라색(#7F6AEE)'과 '포인터 커서'로 잡습니다. */
+    background-color: #7F6AEE; 
     color: white;
-
     border: none;
-
     border-radius: 8px;
-
     font-size: 16px;
-
     font-weight: bold;
-
-    cursor: not-allowed;
-
+    cursor: pointer;
     transition: background-color 0.3s ease;
-
 }
 
-
-
-/* [조건부 반영] 모든 유효성이 통과되어 활성화되었을 때의 스타일 (7F6AEE) */
-
-.btn-login-submit.active {
-
-    background-color: #7F6AEE;
-
-    cursor: pointer;
-
+/* 2. [가상 선택자 활용] HTML에 disabled가 붙었을 때만 자동으로 연보라색+금지커서로 변하게 합니다. */
+.btn-login-submit:disabled {
+    background-color: #ACA0EB; 
+    cursor: not-allowed;
 }
 
 
@@ -1120,18 +1104,6 @@ body.logged-in [data-auth="user"] {
     margin-bottom: 12px;
 }
 
-.btn-primary-purple {
-    width: 100%;
-    height: 44px;
-    background-color: #a393eb; /* 시안의 연보라색 계열 */
-    color: #ffffff;
-    border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
 
 
 .btn-primary-purple:hover {
@@ -1262,10 +1234,11 @@ body.logged-in [data-auth="user"] {
     justify-content: center;
 }
 
+
 .btn-primary-purple {
     width: 100%;
     height: 44px;
-    background-color: #7f6aee; /* 활성화 색상 */
+    background-color: #7f6aee; /* 시안의 연보라색 계열 */
     color: #ffffff;
     border: none;
     border-radius: 6px;

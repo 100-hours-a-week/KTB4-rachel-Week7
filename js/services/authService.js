@@ -14,7 +14,7 @@ export async function login(userData) {
 
     return await fetch('http://localhost:8080/users/login', {
         method: 'POST',
-        // credentials: "include",
+        credentials: "include", // 이 부분 말씀하시는걸까요? 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData) 
     })

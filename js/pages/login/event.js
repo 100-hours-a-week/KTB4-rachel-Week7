@@ -22,9 +22,10 @@ export function initLoginEvents() {
     //비밀번호 유효성 검사 
     passwordInput.addEventListener("input", () => {
         isPasswordValid = validatePassword(passwordInput.value.trim());
-        checkFormValidity(isEmailValid, isPasswordValid);
+        checkFormValidity();
     });
 
+    
 
     // 로그인 버튼 클릭 시 - fetch 서버 확인 및 post 페이지이동
     loginForm.addEventListener("submit", (e) => {
@@ -77,14 +78,14 @@ export function initLoginEvents() {
     function checkFormValidity() {
     
         // 이메일과 비밀번호가 모두 유효성 검사를 통과할때 css 변경
-        if (isEmailValid && isPasswordValid) {
-            loginSubmitBtn.removeAttribute("disabled"); // 비활성화 해제
-            loginSubmitBtn.classList.add("active");     
+        if (isEmailValid && isPasswordValid) { 
+            loginSubmitBtn.disabled = false;    
         } else {
-            loginSubmitBtn.setAttribute("disabled", "true");
-            loginSubmitBtn.classList.remove("active");
+            loginSubmitBtn.disabled = true;
         }
     }
+
+    
 
 }
 

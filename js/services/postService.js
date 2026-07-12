@@ -6,7 +6,7 @@ export async function Allposts() {
     
     console.log(document.cookie);
     try {
-        const response = await fetch(`http://localhost:8080/posts`, { // 여기빨간줄
+        const response = await fetch(`http://localhost:8080/posts`, {
             method: 'GET',
             credentials: "include",
             headers: {
@@ -126,7 +126,7 @@ export async function createLike(postId, userId, userData){
 }
 
 // 좋아요 취소
-export async function deleteLike(postId, userId, userData) {
+export async function deleteLike(postId, userId) {
     console.log(`유저 아이디: ${userId}, 게시글 번호 ${postId} 좋아요 삭제 업데이트 service.js 진입`);
     // const csrfToken = getCookie("XSRF-TOKEN");
     
@@ -136,15 +136,14 @@ export async function deleteLike(postId, userId, userData) {
         headers: { 
             'Content-Type': 'application/json',
            // "X-CSRF-TOKEN": csrfToken
-         },
-        body: JSON.stringify(userData)
+         }
     })
 }
 
 
 // 댓글 생성
 export async function createComment(postId, userData){ // userData 안에 userId있음
-    console.log(`유저 아이디: ${userData['userId']}, 게시글 번호 ${postId} 좋아요 생성 업데이트 service.js 진입`);
+    console.log(`게시글 번호 ${postId} 댓글 생성`);
     // const csrfToken = getCookie("XSRF-TOKEN");
     
     return await fetch(`http://localhost:8080/posts/${postId}/comments`, {
@@ -160,8 +159,8 @@ export async function createComment(postId, userData){ // userData 안에 userId
 
 
 // 댓글 수정 
-export async function updateComment(commentId, userData){
-    console.log(`유저 아이디: ${userData['userId']}, 댓글 번호 ${commentId} 좋아요 생성 업데이트 service.js 진입`);
+export async function updateComment(postId, commentId, userData){
+    console.log(`댓글 번호 ${commentId} 댓글 수정`);
     // const csrfToken = getCookie("XSRF-TOKEN");
     
     return await fetch(`http://localhost:8080/posts/${postId}/comments/${commentId}`, {
@@ -176,8 +175,8 @@ export async function updateComment(commentId, userData){
 }
 
 // 댓글 삭제
-export async function deleteComment(commentId, userData){
-    console.log(`유저 아이디: ${userData['userId']}, 댓글 번호 ${commentId} 좋아요 생성 업데이트 service.js 진입`);
+export async function deleteComment(postId, commentId, userData){
+    console.log(`댓글 번호 ${commentId} 댓글 삭제`);
     // const csrfToken = getCookie("XSRF-TOKEN");
     
     return await fetch(`http://localhost:8080/posts/${postId}/comments/${commentId}`, {
@@ -187,6 +186,6 @@ export async function deleteComment(commentId, userData){
             'Content-Type': 'application/json',
             // "X-CSRF-TOKEN": csrfToken
          },
-        body: JSON.stringify(userData) // 
+         body: JSON.stringify(userData)
     })
 }
