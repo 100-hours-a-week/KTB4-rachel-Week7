@@ -42,7 +42,6 @@ export function initSignupEvents() {
 
     // 프로필 이미지 넣기 - 1. '프로필 사진 선택' 버튼 누를 때
     profileImgInput.addEventListener("change", (e) => { 
-        console.log("이미지 수정 시도");
         ImageUpload(e);
         console.log("이미지 변경됨");
     })

@@ -28,6 +28,8 @@ export function renderPostsLayout() {
 
 
 export function renderPostItems(posts) {
+    console.log(`dom.js에 들어온 post: ${posts}`);
+
     if (!posts || !posts.data || posts.data.length === 0) {
         return `<div class="empty-msg" style="text-align: center; padding: 40px; color: var(--color-text-secondary);">등록된 게시글이 없습니다.</div>`;
     }
