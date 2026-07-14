@@ -20,8 +20,7 @@ export function router() {
     const path = window.location.pathname; // 유저가 처음 브라우저에 접속했을 때 url
     const state = window.history.state;
     
-    console.log(`현재 지금 path는 ${path}이고, state는 ${JSON.stringify(state)} 이면서..`);
-
+    
     // 경우의 수 1: postId으로 상세페이지 접근할때 /post/2111, 경우의 수2: postId으로 상세페이지에서 '수정 페이지'에 갈때 post/write
     if(state && state.postId) { // state 상태 객체가 존재하고, 그 안에 postId도 넘겨왓을 때
         const postId = state.postId;
@@ -80,6 +79,11 @@ export function router() {
 
 
 async function render(pageKey, postId = null, userId = null) {
+
+    const header = document.querySelector('.global-header');
+
+    
+    
 
     // 회원가입 화면 렌더링
     if (pageKey == 'signup') {

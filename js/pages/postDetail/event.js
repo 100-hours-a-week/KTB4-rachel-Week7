@@ -1,6 +1,6 @@
 import {createLike, deletePost, deleteLike, createComment, updateComment, deleteComment } from '../../services/postService.js';
 import { router } from '/main.js'; 
-import { formatCount, renderCommentItems } from './dom.js';
+import { formatCount, renderPostDetailLayout, renderCommentItems } from './dom.js';
 
 export function initPostDetailEvents(postId, currentUserId, authorId) {
     const editPostBtn = document.getElementById('editPostBtn');
@@ -21,7 +21,7 @@ export function initPostDetailEvents(postId, currentUserId, authorId) {
         e.preventDefault();
 
         // 작성자 authorId가 현재 접속자 currentuserId와 같은지 확인
-        if (authorId === currentUserId) {
+        if (String(authorId) === String(currentUserId)) {
             window.history.pushState({postId : postId}, '', '/post/write/${postId}');
             router(); 
         }
@@ -220,7 +220,7 @@ export function initPostDetailEvents(postId, currentUserId, authorId) {
                     console.log("서버가 준 응답 (수정): ", data);
 
                     // TODO: 댓글 생성 후 바로 화면에 보이도록
-                    const commentItem = document.querySelector(`.comment-item[data-comment-id="${currentEditingCommentId}"]`);
+                    const commentItem = document.querySelector(`.comment-item__text[data-comment-id="${currentEditingCommentId}"]`);
                     
                     if (commentItem) {
                     
@@ -228,13 +228,9 @@ export function initPostDetailEvents(postId, currentUserId, authorId) {
                         
                     }
 
-                    // 폼 초기화
+                
+                    // 수정 관련 임시 데이터들을 비워주고 등록 상태로 복구
                     resetCommentForm();
-                    
-                    // 폼 초기화
-                    currentEditingCommentId = null;
-                    commentTextArea.value = "";
-                    commentSubmitBtn.textContent = "댓글 등록";
                     toggleSubmitButton();
 
                     
@@ -258,7 +254,7 @@ export function initPostDetailEvents(postId, currentUserId, authorId) {
                     
                     const newCommentHtml = renderCommentItems([{
                         commentId: data.data.commentId,
-                        nickname: data.data.nickname, 
+                        author: data.data.author, 
                         createdAt: data.data.createdAt,
                         content: commentRequestDto.commentContent 
                     }]);
@@ -285,31 +281,48 @@ export function initPostDetailEvents(postId, currentUserId, authorId) {
 
     
     commentListContainer.addEventListener("click", (e) => {
-        const commentItem = e.target.closest(".comment-item");
+            
+        const isEditBtn = e.target.classList.contains("btn-comment-edit");
+        const isDeleteBtn = e.target.classList.contains("btn-comment-delete");
+        
+        if (!isEditBtn && !isDeleteBtn) return; // TODO: 이게 맞는 로직은 아닌 것 같음.
+
+        const commentItem = e.target.closest(".comment-item"); // 가장 가까운 댓글 상자를 찾음
         if (!commentItem) return;
 
+        
         const commentId = commentItem.getAttribute("data-comment-id");
+        const AuthorId = commentItem.getAttribute("data-author-id");
+
+        // 작성자가 로그인 한 사람 확인
+        if(String(AuthorId) !== String(currentUserId)) { // 댓글 아무곳이나 눌러도, 작성자랑 로그인한 사람이 같아도.. if문에 들어옴. 2가지 문제
+            console.log(`댓글 작성자: ${AuthorId}, 현재 로그인 한 유저: ${currentUserId}`);
+            alert('댓글 작성자가 본인이 아닙니다.');
+            return;
+        }
 
         // 수정 모드
-        if (e.target.classList.contains("btn-comment-edit")) {
-            const originText = commentItem.querySelector(".comment-text").textContent;
+        if (isEditBtn) {
+            const originText = commentItem.querySelector(".comment-item__text").textContent;
             commentTextArea.value = originText;
             
             toggleSubmitButton();
             
             commentSubmitBtn.textContent = "댓글 수정";
-            currentEditingCommentId = commentId; 
+            currentEditingCommentId = commentId; // 현재 수정 중인 댓글의 ID를 변수에 저장 (누구를 고쳐야 하는지 기억하기 위함)
             
-            commentTextArea.focus();
+            commentTextArea.focus(); 
         }
 
         // 댓글 삭제
-        if (e.target.classList.contains("btn-comment-delete")) {
+        if (isDeleteBtn) {
             if (!confirm("정말 삭제하시겠습니까?")) return;
 
             const commentDeleteReqeustDto = {
                 userId: currentUserId
             };
+
+            console.log(`dto에 들어간 currentUserId: ${commentDeleteReqeustDto.userId}`);
 
             deleteComment(postId, commentId, commentDeleteReqeustDto)
                 .then((response) => {
@@ -332,12 +345,21 @@ export function initPostDetailEvents(postId, currentUserId, authorId) {
         }
     });
 
+    // 댓글창 입력 없으면 버튼 비활성화/입력 있으면 활성화 검사 함수
+    function validateCommentInput() {
+        if(commentTextArea.value.trim() === "") {
+            commentSubmitBtn.disabled = true; 
+        } else {
+            commentSubmitBtn.disabled = false;
+        }
+    }
+
 
     function resetCommentForm() {
-        currentEditingCommentId = null;
-        commentTextArea.value = "";
-        commentSubmitBtn.textContent = "댓글 등록";
-        validateCommentInput();
+        currentEditingCommentId = null; // 수정 중이던 user id 비우기
+        commentTextArea.value = ""; // 입력창 비우기
+        commentSubmitBtn.textContent = "댓글 등록"; // 버튼 글씨 복구
+        validateCommentInput(); // 버튼 비활성화 처리
     }
 
 }

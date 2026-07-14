@@ -74,7 +74,7 @@ export function initLoginEvents() {
         router();
     })
 
-    // 이메일+비번 유효성검사 및 로그인버튼 활성화
+    // 이메일,비번 유효성검사 및 로그인버튼 활성화
     function checkFormValidity() {
     
         // 이메일과 비밀번호가 모두 유효성 검사를 통과할때 css 변경

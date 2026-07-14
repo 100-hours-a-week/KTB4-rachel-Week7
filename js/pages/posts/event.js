@@ -15,7 +15,7 @@ export function initPostsEvents() {
     // 상세 페이지로 이동
     postListContainer.addEventListener('click', (e) => {
             // 클릭된 요소와 가장 가까운 .post-item 요소를 찾음
-            const postItem = e.target.closest('.post-item');
+            const postItem = e.target.closest('.post-card');
             if (postItem) {
                 const postId = postItem.dataset.id; // data-id="${post.postId}"
                 history.pushState({postId: postId}, '', `/post/${postId}`);

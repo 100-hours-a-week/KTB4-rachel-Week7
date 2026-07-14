@@ -15,6 +15,7 @@ export async function initPostDetailPage(postId) {
 
 
     document.getElementById("app").innerHTML = renderPostDetailLayout(response.data); // 게시글 리본 레이아웃
+    // console.log(`댓글 콘솔: ${JSON.stringify(response.data.comments)}`);
     document.getElementById("commentListContainer").innerHTML = renderCommentItems(response.data.comments); // 댓글
     
     document.body.classList.add('logged-in');
